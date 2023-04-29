@@ -1,0 +1,125 @@
+<< SEE "README.txt" FOR PROGRAM DESCRIPTION AND HOW TO USE >>
+
+=================
+FEAATURES CHOSEN:
+=================
+
+All of the binary features are listed with full, in-depth descriptions in
+"categories.txt" — I am providing basic descriptions here as well, though,
+and jusifications for why I chose them:
+
+Attribute 0: tests if a sentence contains one of several of the most frequently
+used function words in the English language — this attribute was chosen so that
+a large proportion of very high probability English lines of text could be
+grouped together during training when splitting on this attribute.
+
+Attribute 1: tests if a sentence contains one of several of the most frequently
+used function words in the Dutch language — this attribute was chosen so that
+a large proportion of very high probability Dutch lines of text could be
+grouped together during training when splitting on this attribute.
+
+Attributes 2-3: individual attributes each testing for common sequences of
+letters found very commonly in the Englush language and not often in the Dutch
+language — these attributes were chosen so that common lexical features of
+certain unique individual English words could be identified during training
+when splitting on this attribute.
+
+Attributes 4-6: individual attributes each testing for common sequences of
+letters found very commonly in the Dutch language and not often in the English
+language — these attributes were chosen so that common lexical features of
+certain unique individual Dutch words could be identified during training
+when splitting on this attribute.
+
+Attribute 7: tests if any word contains one or more non-ASCII characters — the
+English language does not generally contain words with accent marks, but the
+Dutch language does have some accented words; these accented words are not
+considered ASCII characters, so splitting on this attribute could help the
+model group and classify Dutch lines of text that contain accented words.
+
+Attribute 8: tests if any word in the line of text contains a repeating vowel
+(not including "aa" since this letter sequence is already tested for
+individually by attribute 6) — the Dutch language possesses a high volume of
+words with repeated values, so it is possible that if no other features are
+able to adequately categorize a certain line of text, using this feature could
+increase the probability of a correct prediction.
+
+Attribute 9: tests if any single word in a line of text is greater than 12
+characters — the Dutch language allows more freedom than the English language
+for creating composite words, so it is more common to find single words
+containing many characters in Dutch, and so this feature was included to allow
+the model to split on it and potentially group together lines of text
+containing a "large" word that would theoretically be a higher percentage Dutch.
+
+Attribute 10: tests if the line of text contains the letter "E" at a rate
+higher than 15% — although "E" is the most commonly used character in both
+English and Dutch, it has only about an 11-12% frequency in the English
+language, as opposed to a 19-20% frequency in the Dutch language, hopefully
+allowing the model to group a majority of English lines under the 15% frequency
+threshold, and a majority of Dutch lines above the 15% frequency threshold.
+
+Attribute 11: tests if the line of text has an average word length of less than
+5 characters — on average, Dutch has a slightly higher number of characters per
+word, and so this attribute could be useful to the model in training if no
+other attributes provide a more definitive prediction.
+
+=======================
+Decision Tree Learning:
+=======================
+
+The decision tree learning algorithm follows a recursive structure and utilizes
+the entropy formula to determine the best attributes to split on.  The only
+hyper-parameter used by the decision tree model was "max depth" and it was
+determined through testing that a max depth of 5 yielded the most accurate
+models.
+
+===========================
+Adaptive Boosting Learning:
+===========================
+
+The AdaBoost model used the decision tree module to construct several trees of
+depth 1, and updated datapoint weights to determine overall hypothesis weights
+for each tree and to correclty train the next tree.  The only hyper-parameter
+used by the AdaBoost model was "number of trees" and it was determined through
+testing the a tree count of 6 yielded the most accurate models.
+
+====================
+Muli-model Training:
+====================
+
+To get a better prediction for the true accuracy of the final model when
+presented with unseen data, multiple testing models were trained and tested
+using different subsets of the overall data.  Their respective accuracies were
+then averaged to determine an "overall" accuracy prediction.
+
+Then, the final model was trained using the entirety of the available data and
+saved in a file.
+
+=======================
+Testing and Evaluation:
+=======================
+
+For each testing model trained, a random 10% of the data was set aside to be
+used for evaluation.  This was employed such that each datapoint had a 10%
+chance of being moved to the testing dataset, resulting in approximately a
+10%-90% split when using high volumes of data.  The initial dataset I used had
+about 5000 datapoints, meaning each model was trained using about 4500
+datapoints and tested using 500 datapoints.
+
+For both the decision tree and adaptive boosting models, this testing data was
+used to evaluate model accuracy, and in turn, helped to fine-tune the
+hyper-parameters and inform as to how well a model functioned.
+
+On average, the decision tree and adaptive boosting models yielded roughly 99%
+accuracy, with the decision tree performing slightly better.
+
+=============
+Final Models:
+=============
+
+The final trained decision tree and boosted ensemble models are included in the
+"src" file as "dt.pkl" and "ada.pkl" respectively.
+
+===========================================================
+
+Thanks for reading my writeup!
+- Max

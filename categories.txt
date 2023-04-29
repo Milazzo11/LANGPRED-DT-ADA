@@ -1,0 +1,12 @@
+att0: does the string contains the word "the" "of" "and" "a" or "to" ?
+att1: does the string contains the word "de" "het" "van" "en" or "een" ?
+att2: does there exist a word in the string containing the sequence of letters: "th" ?
+att3: does there exist a word in the string containing the sequence of letters: "sh" ?
+att4: does there exist a word in the string containing the sequence of letters: "ae" ?
+att5: does there exist a word in the string containing the sequence of letters: "au" ?
+att6: does there exist a word in the string containing the sequence of letters: "aa" ?
+att7: does there exist a word in the string containing non-ASCII characters (testing for letter with an accent mark) ?
+att8: does the string contain a word/words with 2+ E's, I's, O's, or U's in a row ?
+att9: does the string contain a word with more than 12 letters ?
+att10: does the string contain the letter "E" at a rate higher than 15% ?
+att11: does the string have an average word length of less than 5 characters ?
